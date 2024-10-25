@@ -91,3 +91,25 @@ vim.api.nvim_create_autocmd("FileType", {
             { buffer = current_buf, noremap = true, silent = true, desc = "Terminate/Stop" })
     end,
 })
+
+
+
+-- Markdown autocommand
+-- Creating a augroup
+local group = vim.api.nvim_create_augroup("Markdown_AutoCmds", { clear = true })
+
+-- Creating the AutoCmds in the Markdown_AutoCmds augroup
+vim.api.nvim_create_autocmd("FileType", {
+    group = group,
+    pattern = "markdown",
+    callback = function()
+        local current_buf = vim.api.nvim_get_current_buf()
+        -- Run pandoc through shell to latex pdf
+        vim.keymap.set("n", "<leader>cx",
+            ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools}" -t latex -o %:r.pdf && qlmanage -p %:r.pdf <CR>',
+            { buffer = current_buf, noremap = true, silent = true, desc = "Compile and peek PDF" })
+
+        -- Table mode enable
+        vim.cmd(":TableModeEnable")
+    end,
+})
