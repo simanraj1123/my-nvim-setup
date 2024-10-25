@@ -10,6 +10,7 @@ return {
                     extra_args = {"--line-length", 100},
                 }),
                 null_ls.builtins.formatting.isort,
+                null_ls.builtins.diagnostics.pylint,
             },
         })
     end,
