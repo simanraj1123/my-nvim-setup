@@ -55,7 +55,7 @@ return {
                     {
                         icon = ' ',
                         icon_hl = 'group',
-                        desc = 'Open Config',
+                        desc = 'Config',
                         desc_hl = 'group',
                         key = 'c',
                         key_hl = 'group',
@@ -95,7 +95,6 @@ return {
                 },
                 footer = {
                     "Neovim loaded " .. require('lazy').stats().count .. " plugins",
-                    "Have a great coding session!",
                 }
             }
         }
