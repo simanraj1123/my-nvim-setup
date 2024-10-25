@@ -7,4 +7,4 @@
 7. Git: fugitive, gitsigns, lazygit
 8. Mini icons
 9. LSP: Mason, Mason LSP, Nvim LSP
-10. Python-specific: Vim-doge for auto-docstrings
+10. Python-specific: Vim-doge for auto-docstrings, Venv-selector (not automated yet)

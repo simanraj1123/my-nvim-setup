@@ -50,6 +50,9 @@ vim.api.nvim_create_autocmd("FileType", {
 		local current_buf = vim.api.nvim_get_current_buf()
 		vim.keymap.set( "n", "<leader>cx", ":w | !python3 % <CR>",{buffer = current_buf, noremap=true, silent=true, desc = "Run via shell"})
 		vim.keymap.set( "n", "<leader>c\"", ":DogeGenerate sphinx <CR>",{buffer = current_buf, noremap=true, silent=true, desc = "Generate Docstring"})
+		vim.keymap.set( "n", "<leader>v", "",{buffer = current_buf, noremap=true, silent=true, desc = "Venv selector"})
+		vim.keymap.set( "n", "<leader>vs", ":VenvSelect <cr>",{buffer = current_buf, noremap=true, silent=true, desc = "Select"})
+		vim.keymap.set( "n", "<leader>vc", ":VenvSelectCached <cr>",{buffer = current_buf, noremap=true, silent=true, desc = "Select Cached"})
 	end,
 })
 
