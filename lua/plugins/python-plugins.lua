@@ -13,7 +13,8 @@ return {
             require('venv-selector').setup {
                 -- Your options go here
                 name = ".venv",
-                auto_refresh = true
+                auto_refresh = true,
+                stay_on_this_version = true
             }
         end,
         event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
