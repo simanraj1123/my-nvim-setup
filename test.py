@@ -1,13 +1,14 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 x = np.linspace(0, 100, 1000)
 y = np.sin(x)
 
-plt.plot(x, y, 'o')
+plt.plot(x, y, "o")
 plt.show()
 
 print("Hello")
+
 
 def func(n: int) -> int:
     """
@@ -19,6 +20,16 @@ def func(n: int) -> int:
     print(n)
     return n
 
-def func2(n):
-    print(n)
 
+def func2(n):
+    """
+     ff
+
+    :param n [TODO:type]: [TODO:description]
+    """
+    """
+    func2
+
+    :param n anuything: [TODO:description]
+    """
+    print(n)
