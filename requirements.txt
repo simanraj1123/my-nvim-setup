@@ -1,0 +1,10 @@
+1. Catppuccin theme
+2. Treesitter
+3. Neotree
+4. Which-key
+5. Lualine
+6. Telescope
+7. Git: fugitive, gitsigns, lazygit
+8. Mini icons
+9. LSP: Mason, Mason LSP, Nvim LSP
+10. Python-specific: Vim-doge for auto-docstrings
