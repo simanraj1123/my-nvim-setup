@@ -32,9 +32,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end, { desc = "List workspace folders", buffer = ev.buf })
 
         vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Actions", buffer = ev.buf })
-        vim.keymap.set("n", "<leader>cf", function()
-            vim.lsp.buf.format({ async = true })
-        end, { desc = "Format", buffer = ev.buf })
+        -- vim.keymap.set("n", "<leader>cf", function()
+        --     vim.lsp.buf.format({ async = true })
+        -- end, { desc = "Format", buffer = ev.buf })
+        vim.keymap.set({ "n", "v" }, "<leader>cf", function()
+            require('conform').format({
+                lsp_fallback = true,
+                async = false,
+                timeout_ms = 500,
+            })
+        end, { buffer = ev.buf, desc = "Format" })
+        vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+            group = vim.api.nvim_create_augroup("Linting", { clear = true }),
+            callback = function()
+                -- try_lint without arguments runs the linters defined in `linters_by_ft`
+                -- for the current filetype
+                require("lint").try_lint()
+            end,
+        })
     end,
 })
 
@@ -44,23 +59,35 @@ local group = vim.api.nvim_create_augroup("Python_AutoCmds", { clear = true })
 
 -- Creating the AutoCmds in the Python_AutoCmds augroup
 vim.api.nvim_create_autocmd("FileType", {
-	group = group,
-	pattern = "python",
-	callback = function()
-		local current_buf = vim.api.nvim_get_current_buf()
+    group = group,
+    pattern = "python",
+    callback = function()
+        local current_buf = vim.api.nvim_get_current_buf()
         -- Run python through shell
-		vim.keymap.set( "n", "<leader>cx", ":w | !python3 % <CR>",{buffer = current_buf, noremap=true, silent=true, desc = "Run via shell"})
+        vim.keymap.set("n", "<leader>cx", ":w | !python3 % <CR>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Run via shell" })
         -- Generate Auto docstrings
-		vim.keymap.set( "n", "<leader>c\"", ":DogeGenerate sphinx <CR>",{buffer = current_buf, noremap=true, silent=true, desc = "Generate Docstring"})
+        vim.keymap.set("n", "<leader>c\"", ":DogeGenerate sphinx <CR>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Generate Docstring" })
         -- Venv selector
-		vim.keymap.set( "n", "<leader>v", "",{buffer = current_buf, noremap=true, silent=true, desc = "Venv selector"})
-		vim.keymap.set( "n", "<leader>vs", ":VenvSelect <cr>",{buffer = current_buf, noremap=true, silent=true, desc = "Select"})
-		vim.keymap.set( "n", "<leader>vc", ":VenvSelectCached <cr>",{buffer = current_buf, noremap=true, silent=true, desc = "Select Cached"})
+        vim.keymap.set("n", "<leader>v", "", {
+            buffer = current_buf,
+            noremap = true,
+            silent = true,
+            desc =
+            "Venv selector"
+        })
+        vim.keymap.set("n", "<leader>vs", ":VenvSelect <cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Select" })
+        vim.keymap.set("n", "<leader>vc", ":VenvSelectCached <cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Select Cached" })
         -- Neotest
-        vim.keymap.set("n", "<leader>t", "", {buffer = current_buf, noremap=true, silent= true, desc = "Test"})
-        vim.keymap.set("n", "<leader>ts", ":lua require('neotest').summary.toggle()<cr>", {buffer = current_buf, noremap=true, silent= true, desc = "Summary"})
-        vim.keymap.set("n", "<leader>tr", ":lua require('neotest').run.run(vim.fn.getcwd())<cr>", {buffer = current_buf, noremap=true, silent= true, desc = "Run"})
-        vim.keymap.set("n", "<leader>tt", ":lua require('neotest').run.stop(vim.fn.getcwd())<cr>", {buffer = current_buf, noremap=true, silent= true, desc = "Terminate/Stop"})
-	end,
+        vim.keymap.set("n", "<leader>t", "", { buffer = current_buf, noremap = true, silent = true, desc = "Test" })
+        vim.keymap.set("n", "<leader>ts", ":lua require('neotest').summary.toggle()<cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Summary" })
+        vim.keymap.set("n", "<leader>tr", ":lua require('neotest').run.run(vim.fn.getcwd())<cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Run" })
+        vim.keymap.set("n", "<leader>tt", ":lua require('neotest').run.stop(vim.fn.getcwd())<cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Terminate/Stop" })
+    end,
 })
-

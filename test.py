@@ -1,10 +1,12 @@
+import collections
+
 import matplotlib.pyplot as plt
 import numpy as np
 
-x = np.linspace(0, 100, 1000)
-y = np.sin(x)
+xLint = np.linspace(0, 100, 1000)
+y = np.sin(xLint)
 
-plt.plot(x, y, "o")
+plt.plot(xLint, y, "o")
 plt.show()
 
 print("Hello")
@@ -21,15 +23,18 @@ def func(n: int) -> int:
     return n
 
 
-def func2(n):
+def func2(n: int):
     """
-     ff
+    Docstring
 
-    :param n [TODO:type]: [TODO:description]
-    """
-    """
-    func2
-
-    :param n anuything: [TODO:description]
+    :param n: Something
     """
     print(n)
+
+    print("hello")
+    print("hello")
+    print("Hello again")
+    print("Hello")
+
+
+func2(2)

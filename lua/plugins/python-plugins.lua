@@ -12,7 +12,7 @@ return {
         config = function()
             require('venv-selector').setup {
                 -- Your options go here
-                name = ".venv",
+                name = { ".venv", "~/Pyenvs" },
                 auto_refresh = true,
                 stay_on_this_version = true
             }
@@ -34,7 +34,7 @@ return {
             require("neotest").setup({
                 adapters = {
                     require("neotest-python")({
-                        runner= "pytest",
+                        runner = "pytest",
                     })
                 }
             })
