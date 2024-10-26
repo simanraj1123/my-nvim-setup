@@ -18,7 +18,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename", buffer = ev.buf })
 
-        vim.keymap.set("n", "<leader>cD", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "<leader>cD", "", { desc = "Diagnostics", buffer = ev.buf })
+        vim.keymap.set("n", "<leader>cDe", vim.diagnostic.open_float, { buffer = ev.buf, desc = "Expand message" })
         vim.keymap.set("n", "<leader>cK", vim.lsp.buf.hover, { desc = "Hover", buffer = ev.buf })
         vim.keymap.set("n", "<leader>c<C-k>", vim.lsp.buf.signature_help, { desc = "Signature", buffer = ev.buf })
 
@@ -42,14 +43,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 timeout_ms = 500,
             })
         end, { buffer = ev.buf, desc = "Format" })
-        vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-            group = vim.api.nvim_create_augroup("Linting", { clear = true }),
-            callback = function()
-                -- try_lint without arguments runs the linters defined in `linters_by_ft`
-                -- for the current filetype
-                require("lint").try_lint()
-            end,
-        })
+        -- vim.api.nvim_create_autocmd({ "BufReadPre", "InsertLeave" }, {
+        --     group = vim.api.nvim_create_augroup("Linting", { clear = true }),
+        --     callback = function()
+        --         -- try_lint without arguments runs the linters defined in `linters_by_ft`
+        --         -- for the current filetype
+        --         require("lint").try_lint()
+        --     end,
+        -- })
     end,
 })
 
