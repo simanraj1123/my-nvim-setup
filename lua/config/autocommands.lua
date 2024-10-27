@@ -105,12 +105,26 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
     callback = function()
         local current_buf = vim.api.nvim_get_current_buf()
+        -- Map j and k to gj and gk respectively
+        vim.keymap.set("n", "j", "gj", { buffer = current_buf, noremap = true, silent = true })
+        vim.keymap.set("n", "k", "gk", { buffer = current_buf, noremap = true, silent = true })
+
         -- Run pandoc through shell to latex pdf
+        vim.keymap.set("n", "<leader>c", "", { buffer = current_buf, noremap = true, silent = true, desc = "Code" })
         vim.keymap.set("n", "<leader>cx",
             ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools}" -t latex -o %:r.pdf && qlmanage -p %:r.pdf <CR>',
             { buffer = current_buf, noremap = true, silent = true, desc = "Compile and peek PDF" })
+        vim.keymap.set("n", "<leader>cc",
+            ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools}" -t latex -o %:r.pdf <CR>',
+            { buffer = current_buf, noremap = true, silent = true, desc = "Compile PDF" })
+        vim.keymap.set("n", "<leader>cp", ":!qlmanage -p %:r.pdf <cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Peek PDF" })
+        vim.keymap.set("n", "<leader>co", ":!open %:r.pdf <cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Open PDF" })
 
         -- Table mode enable
         vim.cmd(":TableModeEnable")
+        -- Line break
+        vim.cmd(":setlocal linebreak")
     end,
 })
