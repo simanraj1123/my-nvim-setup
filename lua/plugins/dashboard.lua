@@ -83,6 +83,16 @@ return {
                         action = ':Mason',
                     },
                     {
+                        icon = '󰒲 ',
+                        icon_hl = 'group',
+                        desc = 'Lazy update',
+                        desc_hl = 'group',
+                        key = 'u',
+                        key_hl = 'group',
+                        key_format = ' [u]', -- `%s` will be substituted with value of `key`
+                        action = ':Lazy update',
+                    },
+                    {
                         icon = '󰈆 ',
                         icon_hl = 'group',
                         desc = 'Quit',
