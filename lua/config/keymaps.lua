@@ -15,7 +15,15 @@ vim.keymap.set("n", "<leader>bd", ":confirm bd <cr>", { desc = "Delete current b
 
 -- Git
 vim.keymap.set("n", "<leader>g", "", { desc = "Git" })
-vim.keymap.set("n", "<leader>gl", ":LazyGit <cr>", { desc = "Git" })
+vim.keymap.set("n", "<leader>gl", ":LazyGit <cr>", { desc = "LazyGit" })
+vim.keymap.set("n", "<leader>gb", ":Gitsigns toggle_current_line_blame <cr>", { desc = "Toggle blame line" })
+vim.keymap.set("n", "<leader>gB", ":Gitsigns blame <cr>", { desc = "Blame" })
+vim.keymap.set("n", "<leader>gh", ":Gitsigns preview_hunk_inline <cr>", { desc = "Preview hunk" })
 
 -- Go to Dashboard
 vim.keymap.set("n", "<C-d>", ":Dashboard <cr>", { desc = "Dashboard" })
+
+-- Flash
+vim.keymap.set("n", "<leader>s", "", { desc = "Flash search" })
+vim.keymap.set("n", "<leader>ss", "<cmd>lua require('flash').jump()<cr>", { desc = "Search and jump" })
+vim.keymap.set("n", "<leader>st", "<cmd>lua require('flash').treesitter()<cr>", { desc = "Treesitter objects" })
