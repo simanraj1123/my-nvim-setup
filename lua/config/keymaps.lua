@@ -10,8 +10,9 @@ vim.keymap.set("n", "<leader>fg", ":Telescope live_grep <cr>", { desc = "Grep" }
 
 -- Buffer handling
 vim.keymap.set("n", "<leader>b", "", { desc = "Buffers" })
-vim.keymap.set("n", "<leader>bb", ":Telescope buffers <cr>", { desc = "List" })
+vim.keymap.set("n", "<leader>bt", ":Telescope buffers <cr>", { desc = "List in Telescope" })
 vim.keymap.set("n", "<leader>bd", ":confirm bd <cr>", { desc = "Delete current buffer" })
+vim.keymap.set("n", "<leader>bb", ":Neotree float buffers<cr>", { desc = "List in Neotree" })
 
 -- Git
 vim.keymap.set("n", "<leader>g", "", { desc = "Git" })
@@ -27,3 +28,7 @@ vim.keymap.set("n", "<C-d>", ":Dashboard <cr>", { desc = "Dashboard" })
 vim.keymap.set("n", "<leader>s", "", { desc = "Flash search" })
 vim.keymap.set("n", "<leader>ss", "<cmd>lua require('flash').jump()<cr>", { desc = "Search and jump" })
 vim.keymap.set("n", "<leader>st", "<cmd>lua require('flash').treesitter()<cr>", { desc = "Treesitter objects" })
+
+-- Toggleterm
+vim.keymap.set("n", "<leader>T", ":ToggleTerm <cr>", { desc = "Toggle Terminal" })
+vim.keymap.set("t", "<leader><esc>", "<C-\\><C-n>")
