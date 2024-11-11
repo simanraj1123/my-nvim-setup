@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         vim.keymap.set("n", "<leader>cD", "", { desc = "Diagnostics", buffer = ev.buf })
         vim.keymap.set("n", "<leader>cDe", vim.diagnostic.open_float, { buffer = ev.buf, desc = "Expand message" })
-        vim.keymap.set("n", "<leader>cK", vim.lsp.buf.hover, { desc = "Hover", buffer = ev.buf })
+        vim.keymap.set("n", "<leader>cK", vim.lsp.buf.hover, { noremap = true, desc = "Hover", buffer = ev.buf })
         vim.keymap.set("n", "<leader>c<C-k>", vim.lsp.buf.signature_help, { desc = "Signature", buffer = ev.buf })
 
         vim.keymap.set("n", "<leader>cd", "", { desc = "Workspace", buffer = ev.buf })
@@ -43,6 +43,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 timeout_ms = 500,
             })
         end, { buffer = ev.buf, desc = "Format" })
+
+        vim.keymap.set("n", "<leader>cs", ":Telescope lsp_dynamic_workspace_symbols <cr>")
         -- vim.api.nvim_create_autocmd({ "BufReadPre", "InsertLeave" }, {
         --     group = vim.api.nvim_create_augroup("Linting", { clear = true }),
         --     callback = function()
@@ -112,7 +114,7 @@ vim.api.nvim_create_autocmd("FileType", {
         -- Run pandoc through shell to latex pdf
         vim.keymap.set("n", "<leader>c", "", { buffer = current_buf, noremap = true, silent = true, desc = "Code" })
         vim.keymap.set("n", "<leader>cx",
-            ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools}" -t latex -o %:r.pdf && qlmanage -p %:r.pdf <CR>',
+            ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools}" -V header-includes="\\usepackage{braket}" -t latex -o %:r.pdf && qlmanage -p %:r.pdf <CR>',
             { buffer = current_buf, noremap = true, silent = true, desc = "Compile and peek PDF" })
         vim.keymap.set("n", "<leader>cc",
             ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools}" -t latex -o %:r.pdf <CR>',
@@ -121,9 +123,46 @@ vim.api.nvim_create_autocmd("FileType", {
             { buffer = current_buf, noremap = true, silent = true, desc = "Peek PDF" })
         vim.keymap.set("n", "<leader>co", ":!open %:r.pdf <cr>",
             { buffer = current_buf, noremap = true, silent = true, desc = "Open PDF" })
+        vim.keymap.set("n", "<leader>ct", ":TableModeRealign <cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Align table" })
 
         -- Table mode enable
         vim.cmd(":TableModeEnable")
+        -- Line break
+        vim.cmd(":setlocal linebreak")
+    end,
+})
+
+
+
+
+-- Latex autocommand
+-- Creating a augroup
+local group = vim.api.nvim_create_augroup("Latex_AutoCmds", { clear = true })
+
+-- Creating the AutoCmds in the Markdown_AutoCmds augroup
+vim.api.nvim_create_autocmd("FileType", {
+    group = group,
+    pattern = { "*.tex", "latex", "tex", "plaintex" },
+    callback = function()
+        local current_buf = vim.api.nvim_get_current_buf()
+        -- Map j and k to gj and gk respectively
+        vim.keymap.set("n", "j", "gj", { buffer = current_buf, noremap = true, silent = true })
+        vim.keymap.set("n", "k", "gk", { buffer = current_buf, noremap = true, silent = true })
+
+        -- Run pdflatex through shell to latex pdf
+        vim.keymap.set("n", "<leader>c", "", { buffer = current_buf, noremap = true, silent = true, desc = "Code" })
+        vim.keymap.set("n", "<leader>cx",
+            ':w | !pdflatex % && rm %:r.log %:r.aux && qlmanage -p %:r.pdf<CR>',
+            { buffer = current_buf, noremap = true, silent = true, desc = "Compile and peek PDF" })
+        vim.keymap.set("n", "<leader>cc",
+            ':w | !pdflatex % && rm %:r.log %:r.aux<CR>',
+            { buffer = current_buf, noremap = true, silent = true, desc = "Compile PDF" })
+        vim.keymap.set("n", "<leader>cp", ":!qlmanage -p %:r.pdf <cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Peek PDF" })
+        vim.keymap.set("n", "<leader>co", ":!open %:r.pdf <cr>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Open PDF" })
+
         -- Line break
         vim.cmd(":setlocal linebreak")
     end,

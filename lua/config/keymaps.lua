@@ -2,6 +2,10 @@ vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "Window commands" })
 vim.keymap.set("n", "<leader>e", ":Neotree <cr>", {})
 vim.keymap.set("n", "<leader>wq", ":confirm q <cr>", { desc = "Close" })
 
+-- Scrolling
+vim.keymap.set("n", "<C-j>", "<C-e>", { desc = "Scroll down" })
+vim.keymap.set("n", "<C-k>", "<C-y>", { desc = "Scroll up" })
+
 -- File handling
 vim.keymap.set("n", "<leader>f", "", { desc = "File" })
 vim.keymap.set("n", "<leader>fs", ":w <cr>", { desc = "Save" })
