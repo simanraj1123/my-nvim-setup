@@ -114,7 +114,7 @@ vim.api.nvim_create_autocmd("FileType", {
         -- Run pandoc through shell to latex pdf
         vim.keymap.set("n", "<leader>c", "", { buffer = current_buf, noremap = true, silent = true, desc = "Code" })
         vim.keymap.set("n", "<leader>cx",
-            ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools}" -V header-includes="\\usepackage{braket}" -t latex -o %:r.pdf && qlmanage -p %:r.pdf <CR>',
+            ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools, amsmath}" -V header-includes="\\usepackage{braket}" -t latex -o %:r.pdf && qlmanage -p %:r.pdf <CR>',
             { buffer = current_buf, noremap = true, silent = true, desc = "Compile and peek PDF" })
         vim.keymap.set("n", "<leader>cc",
             ':w | !pandoc -s % -V geometry=margin=2.5cm -V header-includes="\\usepackage{mathtools}" -t latex -o %:r.pdf <CR>',
@@ -165,5 +165,24 @@ vim.api.nvim_create_autocmd("FileType", {
 
         -- Line break
         vim.cmd(":setlocal linebreak")
+    end,
+})
+
+
+
+-- Rust autocommand
+-- Creating a augroup
+local group = vim.api.nvim_create_augroup("Rust_AutoCmds", { clear = true })
+
+-- Creating the AutoCmds in the Rust_AutoCmds augroup
+vim.api.nvim_create_autocmd("FileType", {
+    group = group,
+    pattern = "rust",
+    callback = function()
+        local current_buf = vim.api.nvim_get_current_buf()
+
+        -- Run python through shell
+        vim.keymap.set("n", "<leader>cx", ":w | !rustc % && ./%:r <CR>",
+            { buffer = current_buf, noremap = true, silent = true, desc = "Run via shell" })
     end,
 })

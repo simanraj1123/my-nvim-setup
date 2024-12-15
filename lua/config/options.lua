@@ -20,3 +20,5 @@ vim.o.clipboard = "unnamedplus"
 
 vim.o.swapfile = false
 vim.termguicolors = true
+
+vim.o.cursorline = true
