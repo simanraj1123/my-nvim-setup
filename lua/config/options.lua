@@ -22,3 +22,5 @@ vim.o.swapfile = false
 vim.termguicolors = true
 
 vim.o.cursorline = true
+
+vim.cmd("set diffopt+=vertical")
