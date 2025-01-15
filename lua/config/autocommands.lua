@@ -18,17 +18,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename", buffer = ev.buf })
 
-        vim.keymap.set("n", "<leader>cD", "", { desc = "Diagnostics", buffer = ev.buf })
-        vim.keymap.set("n", "<leader>cDe", vim.diagnostic.open_float, { buffer = ev.buf, desc = "Expand message" })
+        vim.keymap.set("n", "<leader>cE", "", { desc = "Diagnostics", buffer = ev.buf })
+        vim.keymap.set("n", "<leader>cEe", vim.diagnostic.open_float, { buffer = ev.buf, desc = "Expand message" })
         vim.keymap.set("n", "<leader>cK", vim.lsp.buf.hover, { noremap = true, desc = "Hover", buffer = ev.buf })
         vim.keymap.set("n", "<leader>c<C-k>", vim.lsp.buf.signature_help, { desc = "Signature", buffer = ev.buf })
 
-        vim.keymap.set("n", "<leader>cd", "", { desc = "Workspace", buffer = ev.buf })
-        vim.keymap.set("n", "<leader>cda", vim.lsp.buf.add_workspace_folder,
+        vim.keymap.set("n", "<leader>cw", "", { desc = "Workspace", buffer = ev.buf })
+        vim.keymap.set("n", "<leader>cwa", vim.lsp.buf.add_workspace_folder,
             { desc = "Add workspace folder", buffer = ev.buf })
-        vim.keymap.set("n", "<leader>cdr", vim.lsp.buf.remove_workspace_folder,
+        vim.keymap.set("n", "<leader>cwr", vim.lsp.buf.remove_workspace_folder,
             { desc = "Remove workspace folder", buffer = ev.buf })
-        vim.keymap.set("n", "<leader>cdl", function()
+        vim.keymap.set("n", "<leader>cwl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, { desc = "List workspace folders", buffer = ev.buf })
 
@@ -53,6 +53,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
         --         require("lint").try_lint()
         --     end,
         -- })
+        --
+        -- Debugger keys
+        vim.keymap.set("n", "<leader>cd", "", { buffer = ev.buf, desc = "Debug" })
+        vim.keymap.set("n", "<leader>cdb", ":DapToggleBreakpoint<cr>", { buffer = ev.buf, desc = "Toggle Breakpoint" })
+        vim.keymap.set("n", "<leader>cdc", ":DapContinue<cr>", { buffer = ev.buf, desc = "Dap Continue" })
+        vim.keymap.set("n", "<leader>cdt", ":DapTerminate<cr>", { buffer = ev.buf, desc = "Dap Terminate" })
+        vim.keymap.set("n", "<leader>cde", ":DapEval<cr>", { buffer = ev.buf, desc = "Dap Eval" })
+        vim.keymap.set("n", "<leader>cdi", ":DapStepInto<cr>", { buffer = ev.buf, desc = "Dap Step Into" })
+        vim.keymap.set("n", "<leader>cdo", ":DapStepOut<cr>", { buffer = ev.buf, desc = "Dap Step Out" })
+        vim.keymap.set("n", "<leader>cdv", ":DapStepOver<cr>", { buffer = ev.buf, desc = "Dap Step Over" })
+        vim.keymap.set("n", "<leader>cdq", ":lua require('dapui').close()<cr>", { buffer = ev.buf, desc = "Quit Dap" })
     end,
 })
 
