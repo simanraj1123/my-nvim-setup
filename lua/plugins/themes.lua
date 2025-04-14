@@ -11,4 +11,10 @@ return {
             require('github-theme').setup({})
         end
     },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    }
 }
