@@ -60,7 +60,7 @@ return {
                         key = 'c',
                         key_hl = 'group',
                         key_format = ' [c]', -- `%s` will be substituted with value of `key`
-                        action = ':Telescope find_files search_dirs={"~/Programming/dotfiles/nvim/"}',
+                        action = ':Telescope find_files search_dirs={"~/.config/nvim/"}',
                     },
                     {
                         icon = '󰒲 ',
